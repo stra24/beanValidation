@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>HelloWorld</title>
+</head>
+<body>
+
+<h1>自己紹介：入力画面</h1>
+<p th:text="${message}"></p>
+
+<form th:action="@{/result}" method="post" th:object="${human}">
+  <div>
+    <label>名前：</label>
+    <input type="text" name="name" th:field="*{name}" required/>
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+  </div>
+  <div>
+    <label>年齢：</label>
+    <input type="text" name="age.value" th:field="*{age.value}" required/>
+    <div th:if="${#fields.hasErrors('age.value')}" th:errors="*{age.value}"></div>
+  </div>
+  <button type="submit">送信</button>
+
+  <!-- 全体のエラーメッセージ -->
+  <div th:if="${errorMessageList != null}">
+    <ul>
+      <li th:each="errorMessage : ${errorMessageList}" th:text="${errorMessage}"></li>
+    </ul>
+  </div>
+</form>
+
+</body>
+</html>
